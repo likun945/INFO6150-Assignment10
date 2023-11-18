@@ -2,7 +2,7 @@ import React from 'react';
 import './WeatherDay.css';
 import Loading from './Loading'; // Import the LoadingComponent
 
-const WeatherDay = ({ data }) => {
+const WeatherDay = ({ data, dayIndex, onDayClick, isSelected  }) => {
     if (!data) {
         return <Loading />; // Use the LoadingComponent here
     }
@@ -21,10 +21,14 @@ const WeatherDay = ({ data }) => {
         Snow: "❄️"
     };
     const weatherCondition = data?.weather?.[0]?.main || 'Unknown';
-    const weatherIcon = weatherIcons[weatherCondition] || '🌈'; // Default icon if condition is unknown
+    const weatherIcon = weatherIcons[weatherCondition] || '🌈';
+    const dayClass = isSelected ? "weather-day selected" : "weather-day";
 
+    const handleClick = () => {
+        onDayClick(dayIndex);
+    };
     return (
-        <div className="weather-day">
+        <div className={dayClass} onClick={handleClick}>
             <h3>{data.dt ? unixTimestampToDate(data.dt) : 'Date Unknown'}</h3>
             <p>High: {data?.temp?.max?.toFixed(1) || 'N/A'}°C</p>
             <p>Low: {data?.temp?.min?.toFixed(1) || 'N/A'}°C</p>
