@@ -1,0 +1,19 @@
+.hourly-forecast {
+    padding: 20px;
+    text-align: center;
+}
+
+.hourly-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hour-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

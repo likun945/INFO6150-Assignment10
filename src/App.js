@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import WeatherList from './components/WeatherList';
 
 function App() {
+  const [weatherData, setWeatherData] = useState(null);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const url = 'https://openweathermap.org/data/2.5/onecall?lat=42.4251&lon=-71.0662&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02';
+        const response = await fetch(url);
+        const data = await response.json();
+        setWeatherData(data.daily);
+      } catch (error) {
+        console.error("Failed to fetch weather data", error);
+      }
+    };
+    fetchWeatherData();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>5-Day Weather Forecast</h1>
       </header>
+      <WeatherList weatherData={weatherData} />
     </div>
   );
 }
